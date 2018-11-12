@@ -1,5 +1,6 @@
 import socket
 import os
+from thread import *
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -8,12 +9,11 @@ port = 5000
 
 server.bind((host, port))
 
-server.listen(1)
+server.listen(20)
 
 print 'Server on por', port
 
-while True:
-    conn, addr = server.accept()
+def newconnection(conn, addr):
     req = conn.recv(1024).decode('utf-8')
     string_list = req.split(' ')
 
@@ -52,5 +52,11 @@ while True:
 
     conn.send(final_response)
     conn.close()
+
+
+while True:
+    conn, addr = server.accept()
+    start_new_thread(newconnection, (conn, addr))
+    
 
 server.close()
