@@ -9,31 +9,17 @@ widget_peso.onkeyup = calcule_imc;
 function calcule_imc() {
     const peso = Number(widget_peso.value);
     const altura = Number(widget_altura.value);
-    const imc = valor_imc(peso, altura).toFixed(1);
-    console.log(imc);
+    
+    const imc = imclib.valor_imc(peso, altura).toFixed(1);
+    const classificacao = imclib.classificacao(imc);
+
     if (imc > 0) {
     	widget_imc.innerText = imc;
-    	widget_classificacao.innerText = classificacao(imc);
+    	widget_classificacao.innerText = classificacao;
     } else {
     	widget_imc.innerText = "imc";
     	widget_classificacao.innerText = "classificacao";
     }
-}
-
-function classificacao(imc){
-	let classificacao;
-
-	if(imc <18.5) classificacao = "Abaixo do peso";
-	else if(imc < 25) classificacao = "Peso normal";
-	else if(imc < 30) classificacao = "sobrepeso";
-	else if(imc < 35) classificacao = "obesidade grau i";
-	else if(imc < 40) classificacao = "obesidade grau ii";
-	else classificacao = "obesidade grau iii";
-
-	return classificacao;
-}
-function valor_imc(peso, altura) {
-    return peso / altura ** 2;
 }
 
 
