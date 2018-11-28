@@ -1,0 +1,1 @@
+import {disciplinas} from './computacao.js';
